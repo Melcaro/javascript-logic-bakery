@@ -34,7 +34,7 @@ console.log(
     coutForetNoire +
     ' €. ' +
     'Prix vendu = ' +
-    Math.floor(coutForetNoire * ((coutForetNoire * coefMarge) / 100)) +
+    Math.floor(coutForetNoire + (coutForetNoire * coefMarge) / 100) +
     ' €.'
 );
 console.log(
@@ -42,7 +42,7 @@ console.log(
     coutTarteFraises +
     ' €. ' +
     'Prix vendu = ' +
-    Math.floor(coutTarteFraises * ((coutTarteFraises * coefMarge) / 100)) +
+    Math.floor(coutTarteFraises + (coutTarteFraises * coefMarge) / 100) +
     ' €.'
 );
 
@@ -51,12 +51,18 @@ const tresorerie = coutForetNoire * 6 + coutTarteFraises * 6;
 console.log(
   'Il faut prévoir ' + tresorerie + ' euros de trésorerie quotidienne.'
 );
+const gateauxVendus = (6 * 90) / 100;
 
-const recette = Math.floor(tresorerie * (1 + coefMarge / 100));
+const recetteForetNoire = Math.floor( 
+  (coutForetNoire + (coutForetNoire * coefMarge) / 100) *gateauxVendus * 5);
+const recetteTarteFraises = Math.floor(
+  (coutTarteFraises + (coutTarteFraises * coefMarge) / 100) * gateauxVendus * 5
+);
 
-console.log('La recette quotidienne sera de ' + recette + ' €.');
+const recetteGlobal = Math.floor(recetteForetNoire + recetteTarteFraises);
+console.log('La recette quotidienne sera de ' + recetteGlobal + ' €.');
 
-const benefice = Math.floor(recette - tresorerie);
+const benefice = Math.floor(recetteGlobal - tresorerie);
 console.log('Le bénéfice sera de ' + benefice + ' €.');
 const isEven = benefice % 2 === 0 && console.log('Bim...');
 const isOdd = benefice % 2 !== 0 && console.log('Bam...');
